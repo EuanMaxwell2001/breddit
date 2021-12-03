@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Breddit</title>
+<style>
+    body {
+        background: #dae0e6 !important;
+        margin-top: 75px !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light style=" style="background-color:#fff !important;">
+    <div class="container">
+    <a class="navbar-brand" href="/">Breddit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <form class="mx-2 my-auto d-inline w-100" style="margin-left: 100px !important; margin-right: 100px !important;">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item btn btn-outline-primary mx-2" href="/login">Login</a>
+                <a class="nav-item btn btn-primary" href="/signup">Signup</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        <button class="btn btn-light btn-sm">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        10.5k
+                        <button class="btn btn-light btn-sm">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                </strong> r/Flask •<span class="text-muted" style="font-size: 10pt;"> Posted by u/Euan 5 hours ago</span>
+            </div>
+        <div class="card-body">
+            <h5 class="card-title">Subscribe to Coding w/ Jake!</h5>
+            <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi suscipit, sequi accusamus
+                doloribus et consequatur asperiores dolorem, nesciunt voluptate eius totam corrupti quae illo
+                tenetur unde pariatur eveniet sunt explicabo!
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <a href="" class="btn btn-light btn-sm"><i class="fas fa-comment"></i> 0 comments</a>
+            <a href="" class="btn btn-light btn-sm"><i class="fas fa-share"></i> Share</a>
+        </div>
+        </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">r/Popular</h5>
+                        <p class="card-text">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia quo animi voluptatum modi quas
+                            labore, id
+                            distinctio, ullam sit mollitia obcaecati nemo neque, nulla ipsum aut! Quo at perferendis neque?
+                        </p>
+                        <a href="/" class="btn btn-primary btn-block">Create Post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
