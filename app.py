@@ -1,4 +1,5 @@
 from flask import *
+from forms import RegistrationForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from helper_functions import salt_password
@@ -9,6 +10,10 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://b3322b067b460c:225bfff4@us-cdbr-east-04.cleardb.com/heroku_6ac55aa9e840c72'
 app.config.from_object(developmentconfig)
 
+app.config['SECRET_KEY'] = 'lIk9BYX296OU3UCl8isc'
+
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -17,6 +22,8 @@ class user(db.Model):
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
+    image_file = db.Column(db.string(20), nullable=False, default='default.jpg')
+    posts = db.relationship('Post', backref='author', lazy=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -24,30 +31,16 @@ class user(db.Model):
 def index():
     return render_template('index.html')
 
+@app.route('/register')
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        _username = request.form['username']
-        _email = request.form['email']
-        _password = request.form['password']
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
 
-        salted_pass = salt_password(_password)
-        hashed_pass = bcrypt.generate_password_hash(salted_pass)
-
-        try:
-            new_user = user(username=_username,
-                            email=_email,
-                            password=hashed_pass)
-            db.session.add(new_user)
-            db.session.commit()
-        except:
-            print("There was a problem creating your account.")
-            return redirect('/')
-
-        return redirect('/')
-
-    return render_template('auth/register.html')
 
 
 if __name__ == '__main__':
