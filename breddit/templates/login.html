@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Breddit - Signup</title>
+<style>
+    body {
+        background: #dae0e6 !important;
+        margin-top: 75px !important;
+    }
+
+    .form-control {
+        margin-bottom: 5px !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form" action="" method="POST">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb4">Log In</legend>
+                            <div class="form-group">
+                                {{ form.email.label(class="form-control-label") }}
+                                {% if form.email.errors %}
+                                {{ form.email(class="form-control form-control-md is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+
+                                {% else %}
+                                {{ form.email(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password.label(class="form-control-label") }}
+                                {% if form.password.errors %}
+                                {{ form.password(class="form-control form-control-md is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+
+                                {% else %}
+                                {{ form.password(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-check">
+                                {{ form.remember(class="form-check-input") }}
+                                {{ form.remember.label(class="form-check-label") }}
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                        <small class="text-muted ml-5">
+                            <a href="#">Forgot Password?</a>
+                        </small>
+                    </form>
+                </div>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Create an account? <a class="ml-2" href="{{ url_for('register') }}">Sign up</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+{% endblock %}

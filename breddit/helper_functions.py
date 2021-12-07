@@ -1,3 +1,4 @@
+
 def salt_password(password):
     #every 2 chars insert a "bingbong"
     iterations = 0
@@ -10,3 +11,5 @@ def salt_password(password):
 
     return ''.join(password_array)
 
+
+#from helper_functions import salt_password
