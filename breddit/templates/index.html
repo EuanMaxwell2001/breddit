@@ -12,52 +12,39 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8">
+    {% for post in posts %}
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <strong>
                         <button class="btn btn-light btn-sm">
                             <i class="fas fa-arrow-up"></i>
                         </button>
-                        10.5k
+                        {{ post.score }}
                         <button class="btn btn-light btn-sm">
                             <i class="fas fa-arrow-down"></i>
                         </button>
-                </strong> r/Flask •<span class="text-muted" style="font-size: 10pt;"> Posted by u/Euan 5 hours ago</span>
-            </div>
-        <div class="card-body">
-            <h5 class="card-title">Bing Bong fuck ya life</h5>
-            <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi suscipit, sequi accusamus
-                doloribus et consequatur asperiores dolorem, nesciunt voluptate eius totam corrupti quae illo
-                tenetur unde pariatur eveniet sunt explicabo!
-            </p>
-        </div>
-        <div class="card-footer text-muted">
-            <a href="" class="btn btn-light btn-sm"><i class="fas fa-comment"></i> 0 comments</a>
-            <a href="" class="btn btn-light btn-sm"><i class="fas fa-share"></i> Share</a>
-        </div>
-        </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">r/Popular</h5>
-                        <p class="card-text">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia quo animi voluptatum modi quas
-                            labore, id
-                            distinctio, ullam sit mollitia obcaecati nemo neque, nulla ipsum aut! Quo at perferendis neque?
-                        </p>
-                        <a href="/" class="btn btn-primary btn-block">Create Post</a>
-                    </div>
+                    </strong> b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by u/{{
+                        post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{{ url_for('post', post_id=post.id) }}"><h5>{{ post.title }}</h5></a>
+                    <p class="card-text">
+                        {{ post.content }}
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-light btn-sm"><i class="fas fa-comment"></i> 0 comments</a>
+                    <a href="" class="btn btn-light btn-sm"><i class="fas fa-share"></i> Share</a>
                 </div>
             </div>
         </div>
+        
     </div>
-</div>
+
+    {% endfor %}
 
 {% endblock %}
 
