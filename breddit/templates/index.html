@@ -2,42 +2,42 @@
 
 {% block head %}
 <title>Breddit</title>
-<style>
-    body {
-        background: #dae0e6 !important;
-        margin-top: 75px !important;
-    }
-</style>
 {% endblock %}
 
 {% block content %}
 
-    {% for post in posts %}
+    {% for post in posts.items %}
 
     <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="row">
+                <div class="col-md-1 align-self-center" style="padding-right: 0px; text-align: center; padding-left:30px;">
                     <strong>
                         <button class="btn btn-light btn-sm">
                             <i class="fas fa-arrow-up"></i>
                         </button>
-                        {{ post.score }}
+                        <p style="margin-bottom: 0;">{{ post.score }}</p>
                         <button class="btn btn-light btn-sm">
                             <i class="fas fa-arrow-down"></i>
                         </button>
-                    </strong> b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by u/{{
-                        post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
+                    </strong>
+                </div>
+                <div class="col-md-11" style="padding-left: 1px;">
+                <div class="card-header">
+                    b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
+                        post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
                 </div>
                 <div class="card-body">
                     <a class="card-title" href="{{ url_for('post', post_id=post.id) }}"><h5>{{ post.title }}</h5></a>
                     <p class="card-text">
                         {{ post.content }}
                     </p>
-                </div>
-                <div class="card-footer text-muted">
-                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-light btn-sm"><i class="fas fa-comment"></i> 0 comments</a>
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-light btn-sm"><i class="fas fa-comment"></i> 0
+                        comments</a>
                     <a href="" class="btn btn-light btn-sm"><i class="fas fa-share"></i> Share</a>
+                </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -46,6 +46,17 @@
 
     {% endfor %}
 
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+            {% else %}
+            ...
+            {% endif %}
+    {% endfor %}
 {% endblock %}
 
 

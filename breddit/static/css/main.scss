@@ -1,0 +1,52 @@
+$colors: (background: #3e4345,
+          foreground: #4e5355,
+          primary: #23a9f6,
+          text: #ffffff);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name)
+}
+
+
+
+body {
+  background-color: color(background) !important;
+  color: #ffffff !important;
+  margin-top: 100px !important;
+}
+
+.navbar{
+  background-color:color(foreground) !important;
+
+  .navbar-brand{
+    color: color(text);
+    font-size: 40px;
+  }
+
+  .btn{
+    background-color: #505557;
+    font-size: 22px;
+    box-shadow:  5px 5px 10px #414547,
+             -5px -5px 10px #5b6163;
+    border-radius: 10px;
+    color: color(text);
+  }
+
+  .btn:hover{
+      
+      background: linear-gradient(145deg, #464b4d, #53595b);
+    }
+}
+
+.card{
+  background-color: color(background) !important;
+
+  .card-header{
+    border-bottom: none;
+    background-color: rgba(0,0,0,0);
+  }
+
+  .card-body{
+    padding-top: 5px;
+  }
+}

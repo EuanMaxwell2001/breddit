@@ -12,8 +12,8 @@
                     <button class="btn btn-light btn-sm">
                         <i class="fas fa-arrow-down"></i>
                     </button>
-                </strong> b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by u/{{
-                    post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
+                </strong> b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
+                    post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ post.title }}</h5>
