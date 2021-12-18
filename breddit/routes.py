@@ -1,11 +1,14 @@
 import os
 import secrets
+import json
 from PIL import Image
 from breddit.models import User, Post
 from breddit import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request, abort
 from breddit.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
+
+
 
 @app.route("/")
 @app.route("/index")
@@ -132,6 +135,9 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        if form.post_img.data:
+            bred_img = save_post_picture(form.post_img.data)
+            post.post_img = bred_img
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
@@ -140,8 +146,10 @@ def update_post(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+    post_img = url_for(
+        'static', filename='post_pics/' + post.post_img)
     return render_template('create_post.html', title='Update Post',
-                           form=form, legend='Update Post')
+                           form=form, legend='Update Post', post_img=post_img)
 
 
 @app.route("/post/<int:post_id>/delete", methods=['POST'])
@@ -161,3 +169,35 @@ def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=6)
     return render_template('user_posts.html', posts=posts, user=user)
+
+
+@app.route("/upvote", methods=['POST'])
+@login_required
+def upvote_post():
+    if request.method == "POST":
+        data_received = json.loads(request.data)
+        post = Post.query.filter_by(id=data_received['id']).first()
+
+        if post:
+            setattr(post, "score", post.score + 1)
+            db.session.commit()
+
+            return json.dumps({'status': 'success'})
+        return json.dumps({'status': 'no post found'})
+    return redirect(url_for('index'))
+
+
+@app.route("/downvote", methods=['POST'])
+@login_required
+def downvote_post():
+    if request.method == "POST":
+        data_received = json.loads(request.data)
+        post = Post.query.filter_by(id=data_received['id']).first()
+
+        if post:
+            setattr(post, "score", post.score - 1)
+            db.session.commit()
+
+            return json.dumps({'status': 'success'})
+        return json.dumps({'status': 'no post found'})
+    return redirect(url_for('index'))

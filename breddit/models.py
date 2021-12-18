@@ -25,7 +25,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    score = db.Column(db.Integer, nullable=False)
+    score = db.Column(db.Integer, nullable=False, default='1')
     post_img = db.Column(db.String(20), nullable=False, default='default.jpg')
 
     def __repr__(self):
