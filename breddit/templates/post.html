@@ -20,6 +20,7 @@
                 <p class="card-text">
                     {{ post.content }}
                 </p>
+                <img class="image" width="150px" src="/static/post_pics/{{ post.post_img }}" alt="IMAGEEEE">
             </div>
             <div class="card-footer text-muted">
                 <a class="btn btn-light btn-sm" href="{{ url_for('update_post', post_id=post.id) }}"><i class="fas fa-pen"></i>Update</a>
@@ -29,7 +30,7 @@
     </div>
 
 </div>
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+<div class="modal fade text-dark" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

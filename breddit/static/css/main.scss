@@ -1,7 +1,8 @@
 $colors: (background: #3e4345,
           foreground: #4e5355,
-          primary: #23a9f6,
-          text: #ffffff);
+          primary: #505557,
+          text: #ffffff,
+          button: #367bf5);
 
 @function color($color-name) {
   @return map-get($colors, $color-name)
@@ -13,6 +14,7 @@ body {
   background-color: color(background) !important;
   color: #ffffff !important;
   margin-top: 100px !important;
+  font-family: 'Poppins', sans-serif;
 }
 
 .navbar{
@@ -38,8 +40,51 @@ body {
     }
 }
 
+#sidebar{
+
+  .content-section{
+  background-color: color(foreground);
+  border-radius: 10px;
+  box-shadow: 0px 4px 50px rgba(0,0,0,0.1);
+
+  img{
+    border-radius: 10px 10px 0px 0px;
+  }
+
+  .actual-content{
+    padding: 20px;
+  }
+
+  h3{
+    text-align: center;
+  }
+
+  .submit-post-btn{
+    margin: auto;
+    background-color: color(button);
+    text-align: center;
+    width: 100%;
+    box-shadow: 5px 5px 40px rgba(0,0,0,0.2);
+    border-radius: 9px;
+    font-size: 23px;
+    color: color(text);
+    border: none;
+    padding: 6px 0px 6px 0px;
+    cursor: pointer;
+  }
+
+  .submit-post-btn:hover{
+    background-color: color(primary);
+    animation-duration: 0.2s;
+  }
+  
+  }
+}
+
 .card{
-  background-color: color(background) !important;
+  background-color: color(foreground) !important;
+  border-radius: 10px;
+  box-shadow: 0px 4px 50px rgba(0,0,0,0.1);
 
   .card-header{
     border-bottom: none;
@@ -49,4 +94,40 @@ body {
   .card-body{
     padding-top: 5px;
   }
+
+  .btn-sm{
+    background-color: color(primary);
+    color: color(text);
+  }
+
+  .btn-sm:hover{
+    background-color: #3e4345;
+  }
+
+
+  #vote_up{
+    font-size: 22px;
+    border-radius: 10px;
+  }
+
+  #vote_down{
+    font-size: 22px;
+    border-radius: 10px;
+  }
+
+  #vote_up:hover{
+    color: #a9d051;
+  }
+
+  #vote_down:hover{
+    color: #f2994a;
+  }
+
+  img{
+    width: 100%;
+  }
+}
+
+#account_card{
+  background-color: color(primary);
 }

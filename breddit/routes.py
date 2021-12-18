@@ -86,13 +86,30 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
+def save_post_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(
+        app.root_path, 'static/post_pics', picture_fn)
+
+    output_size = (500, 500)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+
+    i.save(picture_path)
+
+    return picture_fn
+
+
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
+        bred_img = save_post_picture(form.post_img.data)
         post = Post(title=form.title.data,
-                    content=form.content.data, author=current_user)
+                    content=form.content.data, author=current_user, post_img=bred_img)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -104,7 +121,7 @@ def new_post():
 @app.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    return render_template('post.html', title=post.title, bred_img=post.post_img, post=post)
 
 
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])

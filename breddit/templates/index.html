@@ -8,28 +8,31 @@
 
     {% for post in posts.items %}
 
-    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+    <div class="row" style="margin-top: 0px; margin-bottom: 40px;">
         <div class="col-md-12">
             <div class="card">
                 <div class="row">
-                <div class="col-md-1 align-self-center" style="padding-right: 0px; text-align: center; padding-left:30px;">
+                <div class="col-md-1 align-self-center" style="padding-right: 0px; text-align: center; padding-left:30px; font-size: 18px;">
                     <strong>
-                        <button class="btn btn-light btn-sm">
-                            <i class="fas fa-arrow-up"></i>
+                        <button class="btn btn-sm" id="vote_up">
+                            <i class="fas fa-chevron-up"></i>
                         </button>
                         <p style="margin-bottom: 0;">{{ post.score }}</p>
-                        <button class="btn btn-light btn-sm">
-                            <i class="fas fa-arrow-down"></i>
+                        <button class="btn btn-sm" id="vote_down">
+                            <i class="fas fa-chevron-down"></i>
                         </button>
                     </strong>
                 </div>
-                <div class="col-md-11" style="padding-left: 1px;">
+                <div class="col-md-3 align-self-center">                  
+                    <img class="bg-warning" width="150px" src="/static/post_pics/{{ post.post_img }}" alt="IMAGEEEE">
+                </div>
+                <div class="col-md-8" style="padding-left: 1px;">
                 <div class="card-header">
                     b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
                         post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
                 </div>
                 <div class="card-body">
-                    <a class="card-title" href="{{ url_for('post', post_id=post.id) }}"><h5>{{ post.title }}</h5></a>
+                    <a class="card-title" href="{{ url_for('post', post_id=post.id) }}"><h3>{{ post.title }}</h3></a>
                     <p class="card-text">
                         {{ post.content }}
                     </p>
