@@ -198,6 +198,5 @@ def downvote_post():
             setattr(post, "score", post.score - 1)
             db.session.commit()
 
-            return json.dumps({'status': 'success'})
-        return json.dumps({'status': 'no post found'})
-    return redirect(url_for('index'))
+        return json.dumps({'status': 'success'})
+    return redirect('index.html')

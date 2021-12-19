@@ -5,13 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <strong>
-                    <button class="btn btn-sm" id="vote_up" data-id="{{ post.id }}">
-                        <i class="fas fa-chevron-up"></i>
-                    </button>
-                    {{ post.score }}
-                    <button class="btn btn-light btn-sm">
-                        <i class="fas fa-arrow-down"></i>
-                    </button>
+                    Post score: {{ post.score }}
                 </strong> b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
                     post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
             </div>
@@ -20,7 +14,7 @@
                 <p class="card-text">
                     {{ post.content }}
                 </p>
-                <img class="image" width="150px" src="/static/post_pics/{{ post.post_img }}" alt="IMAGEEEE">
+                
             </div>
             <div class="card-footer text-muted">
                 <a class="btn btn-light btn-sm" href="{{ url_for('update_post', post_id=post.id) }}"><i class="fas fa-pen"></i>Update</a>

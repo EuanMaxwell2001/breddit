@@ -14,13 +14,7 @@
                 <div class="row">
                 <div class="col-md-1 align-self-center" style="padding-right: 0px; text-align: center; padding-left:30px; font-size: 18px;">
                     <strong>
-                        <button type="button" class="btn btn-sm" id="vote_up" data-id="{{ post.id }}" data-toggle="button" aria-pressed="false">
-                            <i class="fas fa-chevron-up"></i>
-                        </button>
-                        <p style="margin-bottom: 0;">{{ post.score }}</p>
-                        <button type="button" class="btn btn-sm" id="vote_down" data-id="{{ post.id }}" data-toggle="button" aria-pressed="false">
-                        <i class="fas fa-chevron-down"></i>
-                        </button>
+                        
 
                         <script type="text/javascript">                            
                         $(document).on('click', '#vote_up', function(event) {
@@ -31,11 +25,16 @@
                                 dataType: "json",
                                 data : JSON.stringify({'id' : $('#vote_up').data('id')}),
                                 success : function(response) {
+                                    setTimeout(function () {// wait for 5 secs(2)
+                                        location.reload(); // then reload the page.(3)
+                                    },); 
                                     console.log(response);	
                                 }
                             });
             
                         });
+                        </script>
+                        <script type="text/javascript">
 
                         $(document).on('click', '#vote_down', function (event) {
                                 $.ajax({
@@ -45,21 +44,24 @@
                                     dataType: "json",
                                     data: JSON.stringify({ 'id': $('#vote_down').data('id') }),
                                     success: function (response) {
+                                    setTimeout(function () {// wait for 5 secs(2)
+                                            location.reload(); // then reload the page.(3)
+                                        },); 
                                         console.log(response);
                                     }
                                 });
                                 
                             });
-
-
                         </script>
-                        <!--<button class="btn btn-sm" id="vote_up">
+
+                        <button type="button" class="btn btn-sm" id="vote_up" data-id="{{ post.id }}" data-toggle="button" aria-pressed="false">
                             <i class="fas fa-chevron-up"></i>
                         </button>
-                        <p style="margin-bottom: 0;">{{ post.score }}</p>
-                        <button class="btn btn-sm" id="vote_down">
+                        <div id="scorediv" style="margin-bottom: 0;">{{ post.score }}</div>
+                        <button type="button" class="btn btn-sm" id="vote_down" data-id="{{ post.id }}" data-toggle="button"
+                            aria-pressed="false">
                             <i class="fas fa-chevron-down"></i>
-                        </button>-->
+                        </button>
                     </strong>
                 </div>
                 <div class="col-md-3 align-self-center">                  
