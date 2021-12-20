@@ -117,4 +117,14 @@ body {
 #account_card {
   background-color: #505557;
 }
+
+.page-footer {
+  background-color: #505557;
+  margin-top: 20px;
+}
+
+.btn-info {
+  background-color: #367bf5;
+  font-size: 20px;
+}
 /*# sourceMappingURL=main.css.map */

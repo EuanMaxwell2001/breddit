@@ -44,8 +44,8 @@
                                     dataType: "json",
                                     data: JSON.stringify({ 'id': $('#vote_down').data('id') }),
                                     success: function (response) {
-                                    setTimeout(function () {// wait for 5 secs(2)
-                                            location.reload(); // then reload the page.(3)
+                                    setTimeout(function () {
+                                            location.reload(); //reload the page.
                                         },); 
                                         console.log(response);
                                     }
@@ -73,7 +73,7 @@
                         post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
                 </div>
                 <div class="card-body">
-                    <a class="card-title" href="{{ url_for('post', post_id=post.id) }}"><h3>{{ post.title }}</h3></a>
+                    <a class="card-title" href="{{ post.link }}" target="_blank"><h3>{{ post.title }}</h3></a>
                     <p class="card-text">
                         {{ post.content }}
                     </p>
@@ -95,7 +95,7 @@
             {% if posts.page == page_num %}
                 <a class="btn btn-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
             {% else %}
-                <a class="btn btn-outline-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
+                <a class="btn btn-info mb-4" href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
             {% endif %}
             {% else %}
             ...

@@ -14,6 +14,9 @@
                 <p class="card-text">
                     {{ post.content }}
                 </p>
+                <a class="btn btn-light btn-sm" href="{{ post.link }}" target="_blank">
+                    Go to Link
+                </a>
                 
             </div>
             <div class="card-footer text-muted">
@@ -43,6 +46,30 @@
         </div>
     </div>
 </div>
+<form class="input-group mt-3" method="POST" action="/create-comment/{{ post.id }}">
+    <input type="text" id="body" name="body" class="form-control" placeholder="Add a comment" />
+    <button type="submit" class="btn btn-primary">Comment</button>
+</form>
+
+{% for comment in post.comments %}
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <a href="{{ url_for('user_posts', username=post.author.username) }}">{{comment.user.username}}</a>: {{comment.body}}
+    </div>
+    <div>
+        <small class="text-muted"> {{comment.timestamp}}</small>
+        {% if user.id == comment.author or user.id == post.author %}
+        <div class="btn-group">
+            <a href="/delete-comment/{{ comment.id }}">
+                <button type="button" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
 
 
 {% endblock %}

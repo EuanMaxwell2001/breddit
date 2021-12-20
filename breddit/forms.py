@@ -59,6 +59,12 @@ def validate_email(self, email):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
+    link = StringField('Link', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     post_img = FileField('Choose picture for post', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Post')
+
+
+class AddCommentForm(FlaskForm):
+    body = StringField("Body", validators=[DataRequired()])
+    submit = SubmitField("Post")

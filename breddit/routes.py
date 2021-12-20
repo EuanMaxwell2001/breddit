@@ -2,12 +2,11 @@ import os
 import secrets
 import json
 from PIL import Image
-from breddit.models import User, Post
+from breddit.models import User, Post, Comment
 from breddit import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request, abort
-from breddit.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from breddit.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, AddCommentForm
 from flask_login import login_user, current_user, logout_user, login_required
-
 
 
 @app.route("/")
@@ -111,7 +110,7 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         bred_img = save_post_picture(form.post_img.data)
-        post = Post(title=form.title.data,
+        post = Post(title=form.title.data, link=form.link.data,
                     content=form.content.data, author=current_user, post_img=bred_img)
         db.session.add(post)
         db.session.commit()
@@ -124,7 +123,7 @@ def new_post():
 @app.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, bred_img=post.post_img, post=post)
+    return render_template('post.html', user=current_user, title=post.title, bred_img=post.post_img, post=post)
 
 
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
@@ -140,12 +139,13 @@ def update_post(post_id):
             post.post_img = bred_img
         post.title = form.title.data
         post.content = form.content.data
+        post.link = form.link.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
-        form.content.data = post.content
+        post.link = form.link.data
     post_img = url_for(
         'static', filename='post_pics/' + post.post_img)
     return render_template('create_post.html', title='Update Post',
@@ -200,3 +200,40 @@ def downvote_post():
 
         return json.dumps({'status': 'success'})
     return redirect('index.html')
+
+
+@app.route("/create-comment/<post_id>", methods=['GET', 'POST'])
+@login_required
+def create_comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    body = request.form.get('body')
+
+    if not body:
+        flash('Comment cannot be empty.', category='error')
+    else:
+        post = Post.query.filter_by(id=post_id)
+        if post:
+            comment = Comment(
+                body=body, author=current_user.id, post_id=post_id)
+            db.session.add(comment)
+            db.session.commit()
+        else:
+            flash('Post does not exist.', category='error')
+
+    return redirect(url_for('post', post_id=post_id))
+
+
+@app.route("/delete-comment/<comment_id>", methods=['GET', 'POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first()
+
+    if not comment:
+        flash('Comment does not exist.', category='error')
+    elif current_user.id != comment.author and current_user.id != comment.post.author:
+        flash('You do not have permission to delete this comment.', category='error')
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+
+    return redirect(url_for('post', post_id=comment.post_id))
