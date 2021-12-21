@@ -9,7 +9,6 @@ chardet==4.0.0
 click==7.1.2
 colorama==0.4.4
 cryptography==3.3.2
-dbus-python==1.2.16
 distlib==0.3.3
 distro==1.5.0
 dnspython==2.1.0
