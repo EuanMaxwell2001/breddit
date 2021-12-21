@@ -5,7 +5,7 @@ from PIL import Image
 from breddit.models import User, Post, Comment
 from breddit import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request, abort
-from breddit.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, AddCommentForm
+from breddit.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 

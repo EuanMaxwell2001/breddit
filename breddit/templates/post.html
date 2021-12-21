@@ -6,7 +6,8 @@
             <div class="card-header">
                 <strong>
                     Post score: {{ post.score }}
-                </strong> b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
+                </strong>
+                <span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
                     post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
             </div>
             <div class="card-body">

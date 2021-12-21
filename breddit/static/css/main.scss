@@ -23,6 +23,7 @@ body {
   .navbar-brand{
     color: color(text);
     font-size: 40px;
+    font-weight: bold;
   }
 
   .btn{
@@ -40,12 +41,18 @@ body {
     }
 }
 
+.content-section{
+  padding: 20px;
+}
+
 #sidebar{
 
   .content-section{
   background-color: color(foreground);
   border-radius: 10px;
   box-shadow: 0px 4px 50px rgba(0,0,0,0.1);
+  padding: 0px;
+
 
   img{
     border-radius: 10px 10px 0px 0px;
@@ -141,3 +148,4 @@ body {
   background-color: color(button);
   font-size: 20px;
 }
+

@@ -64,7 +64,3 @@ class PostForm(FlaskForm):
     post_img = FileField('Choose picture for post', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Post')
 
-
-class AddCommentForm(FlaskForm):
-    body = StringField("Body", validators=[DataRequired()])
-    submit = SubmitField("Post")

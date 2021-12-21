@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-8" style="padding-left: 1px;">
                 <div class="card-header">
-                    b/Main •<span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
+                    <span class="text-muted" style="font-size: 10pt;"> Posted by <a href="{{ url_for('user_posts', username=post.author.username) }}">u/{{
                         post.author.username }}</a> on {{ post.date_posted.strftime('%Y-%m-%d') }}</span>
                 </div>
                 <div class="card-body">
@@ -77,9 +77,8 @@
                     <p class="card-text">
                         {{ post.content }}
                     </p>
-                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-light btn-sm"><i class="fas fa-comment"></i> 0
-                        comments</a>
-                    <a href="" class="btn btn-light btn-sm"><i class="fas fa-share"></i> Share</a>
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-light btn-sm"><i class="fas fa-comment"></i>
+                    View comments</a>
                 </div>
                 </div>
                 </div>
